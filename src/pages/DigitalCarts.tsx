@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useToast } from "@/hooks/use-toast";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -35,6 +36,7 @@ import {
 export default function DigitalCarts() {
   const [activeFilter, setActiveFilter] = useState("all");
   const [searchTerm, setSearchTerm] = useState("");
+  const { toast } = useToast();
 
   const activeCarts = [
     {
@@ -116,7 +118,10 @@ export default function DigitalCarts() {
           </p>
         </div>
         <div className="flex gap-2">
-          <Button variant="outline">
+          <Button 
+            variant="outline"
+            onClick={() => toast({ title: "Refreshed", description: "Cart data updated successfully." })}
+          >
             <RefreshCw className="mr-2 h-4 w-4" />
             Refresh
           </Button>
@@ -286,12 +291,18 @@ export default function DigitalCarts() {
                               </div>
                               <div className="flex gap-2">
                                 <Input placeholder="Type your message..." />
-                                <Button>Send</Button>
+                                <Button onClick={() => toast({ title: "Message Sent", description: "Response sent to customer." })}>
+                                  Send
+                                </Button>
                               </div>
                             </div>
                           </DialogContent>
                         </Dialog>
-                        <Button variant="ghost" size="sm">
+                        <Button 
+                          variant="ghost" 
+                          size="sm"
+                          onClick={() => toast({ title: "Call Started", description: `Calling ${cart.customer}...` })}
+                        >
                           <Phone className="h-4 w-4" />
                         </Button>
                       </div>

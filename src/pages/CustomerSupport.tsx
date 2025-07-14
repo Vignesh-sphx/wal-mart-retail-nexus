@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useToast } from "@/hooks/use-toast";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -44,6 +45,7 @@ import {
 export default function CustomerSupport() {
   const [selectedTicket, setSelectedTicket] = useState<string | null>(null);
   const [chatMessage, setChatMessage] = useState("");
+  const { toast } = useToast();
 
   const supportTickets = [
     {
@@ -148,11 +150,17 @@ export default function CustomerSupport() {
           </p>
         </div>
         <div className="flex gap-2">
-          <Button variant="outline">
+          <Button 
+            variant="outline"
+            onClick={() => toast({ title: "Call Queue", description: "Opening call management interface..." })}
+          >
             <Phone className="mr-2 h-4 w-4" />
             Call Queue
           </Button>
-          <Button variant="walmart">
+          <Button 
+            variant="walmart"
+            onClick={() => toast({ title: "New Chat", description: "Starting new customer chat session..." })}
+          >
             <MessageSquare className="mr-2 h-4 w-4" />
             New Chat
           </Button>
@@ -336,7 +344,12 @@ export default function CustomerSupport() {
                                   onChange={(e) => setChatMessage(e.target.value)}
                                   className="flex-1"
                                 />
-                                <Button>
+                                <Button onClick={() => {
+                                  if (chatMessage.trim()) {
+                                    toast({ title: "Message Sent", description: "Response sent to customer." });
+                                    setChatMessage("");
+                                  }
+                                }}>
                                   <Send className="h-4 w-4" />
                                 </Button>
                               </div>
@@ -362,19 +375,35 @@ export default function CustomerSupport() {
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="space-y-3">
-              <Button variant="outline" className="w-full justify-start">
+              <Button 
+                variant="outline" 
+                className="w-full justify-start"
+                onClick={() => toast({ title: "Video Call", description: "Starting video call with customer..." })}
+              >
                 <Video className="mr-2 h-4 w-4" />
                 Start Video Call
               </Button>
-              <Button variant="outline" className="w-full justify-start">
+              <Button 
+                variant="outline" 
+                className="w-full justify-start"
+                onClick={() => toast({ title: "Transfer", description: "Transferring ticket to manager..." })}
+              >
                 <Phone className="mr-2 h-4 w-4" />
                 Transfer to Manager
               </Button>
-              <Button variant="outline" className="w-full justify-start">
+              <Button 
+                variant="outline" 
+                className="w-full justify-start"
+                onClick={() => toast({ title: "Escalated", description: "Ticket escalated to technical team." })}
+              >
                 <AlertCircle className="mr-2 h-4 w-4" />
                 Escalate to Technical
               </Button>
-              <Button variant="outline" className="w-full justify-start">
+              <Button 
+                variant="outline" 
+                className="w-full justify-start"
+                onClick={() => toast({ title: "Resolved", description: "Ticket marked as resolved." })}
+              >
                 <CheckCircle className="mr-2 h-4 w-4" />
                 Mark as Resolved
               </Button>

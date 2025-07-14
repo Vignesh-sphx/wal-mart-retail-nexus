@@ -1,6 +1,8 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { useToast } from "@/hooks/use-toast";
+import { Link } from "react-router-dom";
 import {
   Package,
   ShoppingCart,
@@ -13,6 +15,7 @@ import {
 } from "lucide-react";
 
 export default function Dashboard() {
+  const { toast } = useToast();
   const stats = [
     {
       title: "Active Digital Carts",
@@ -83,7 +86,11 @@ export default function Dashboard() {
             Welcome back! Here's what's happening in your store today.
           </p>
         </div>
-        <Button variant="walmart" className="shadow-glow">
+        <Button 
+          variant="walmart" 
+          className="shadow-glow"
+          onClick={() => toast({ title: "Live View Activated", description: "Real-time monitoring is now active." })}
+        >
           <Activity className="mr-2 h-4 w-4" />
           Live View
         </Button>
@@ -166,22 +173,30 @@ export default function Dashboard() {
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-3">
-            <Button variant="outline" className="w-full justify-start">
-              <Package className="mr-2 h-4 w-4" />
-              Add New Product
-            </Button>
-            <Button variant="outline" className="w-full justify-start">
-              <Eye className="mr-2 h-4 w-4" />
-              Monitor Carts
-            </Button>
-            <Button variant="outline" className="w-full justify-start">
-              <TrendingUp className="mr-2 h-4 w-4" />
-              View Analytics
-            </Button>
-            <Button variant="outline" className="w-full justify-start">
-              <Users className="mr-2 h-4 w-4" />
-              Customer Support
-            </Button>
+            <Link to="/inventory">
+              <Button variant="outline" className="w-full justify-start">
+                <Package className="mr-2 h-4 w-4" />
+                Add New Product
+              </Button>
+            </Link>
+            <Link to="/carts">
+              <Button variant="outline" className="w-full justify-start">
+                <Eye className="mr-2 h-4 w-4" />
+                Monitor Carts
+              </Button>
+            </Link>
+            <Link to="/insights">
+              <Button variant="outline" className="w-full justify-start">
+                <TrendingUp className="mr-2 h-4 w-4" />
+                View Analytics
+              </Button>
+            </Link>
+            <Link to="/support">
+              <Button variant="outline" className="w-full justify-start">
+                <Users className="mr-2 h-4 w-4" />
+                Customer Support
+              </Button>
+            </Link>
           </CardContent>
         </Card>
       </div>

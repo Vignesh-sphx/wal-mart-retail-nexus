@@ -1,6 +1,7 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { useToast } from "@/hooks/use-toast";
 import {
   Select,
   SelectContent,
@@ -21,6 +22,7 @@ import {
 } from "lucide-react";
 
 export default function NutritionalInsights() {
+  const { toast } = useToast();
   const topNutritionItems = [
     {
       name: "Greek Yogurt - Plain",
@@ -131,7 +133,10 @@ export default function NutritionalInsights() {
               <SelectItem value="year">This year</SelectItem>
             </SelectContent>
           </Select>
-          <Button variant="outline">
+          <Button 
+            variant="outline"
+            onClick={() => toast({ title: "Export Started", description: "Downloading nutritional insights report..." })}
+          >
             <Download className="mr-2 h-4 w-4" />
             Export Report
           </Button>

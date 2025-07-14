@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useToast } from "@/hooks/use-toast";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -42,6 +43,7 @@ import {
 export default function Inventory() {
   const [searchTerm, setSearchTerm] = useState("");
   const [filter, setFilter] = useState("all");
+  const { toast } = useToast();
 
   const inventoryItems = [
     {
@@ -165,11 +167,19 @@ export default function Inventory() {
               </DialogHeader>
               <div className="space-y-4">
                 <Input type="file" accept=".csv" />
-                <Button className="w-full">Upload Products</Button>
+                <Button 
+                  className="w-full"
+                  onClick={() => toast({ title: "Upload Started", description: "Processing CSV file..." })}
+                >
+                  Upload Products
+                </Button>
               </div>
             </DialogContent>
           </Dialog>
-          <Button variant="walmart">
+          <Button 
+            variant="walmart"
+            onClick={() => toast({ title: "Add Product", description: "Product form would open here." })}
+          >
             <Plus className="mr-2 h-4 w-4" />
             Add Product
           </Button>
@@ -285,13 +295,25 @@ export default function Inventory() {
                     </TableCell>
                     <TableCell className="text-right">
                       <div className="flex justify-end gap-2">
-                        <Button variant="ghost" size="sm">
+                        <Button 
+                          variant="ghost" 
+                          size="sm"
+                          onClick={() => toast({ title: "Product Details", description: `Viewing ${item.name}` })}
+                        >
                           <Eye className="h-4 w-4" />
                         </Button>
-                        <Button variant="ghost" size="sm">
+                        <Button 
+                          variant="ghost" 
+                          size="sm"
+                          onClick={() => toast({ title: "Edit Product", description: `Editing ${item.name}` })}
+                        >
                           <Edit className="h-4 w-4" />
                         </Button>
-                        <Button variant="ghost" size="sm">
+                        <Button 
+                          variant="ghost" 
+                          size="sm"
+                          onClick={() => toast({ title: "Delete Product", description: `Are you sure you want to delete ${item.name}?` })}
+                        >
                           <Trash2 className="h-4 w-4" />
                         </Button>
                       </div>
