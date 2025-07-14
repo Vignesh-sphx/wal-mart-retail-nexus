@@ -32,7 +32,7 @@ const mainNavItems = [
   { title: "Inventory", url: "/inventory", icon: Package, badge: "12" },
   { title: "Digital Carts", url: "/carts", icon: ShoppingCart, badge: "live" },
   { title: "Nutritional Insights", url: "/insights", icon: BarChart3 },
-  { title: "Recommendations", url: "/recommendations", icon: TrendingUp },
+  { title: "Product Analytics", url: "/analytics", icon: TrendingUp },
   { title: "Transactions", url: "/transactions", icon: Wallet },
 ];
 
